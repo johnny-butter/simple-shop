@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+    <div class="container" style="max-width: 100%;">
+        <div class="row">
+            <div class="col">
+                客戶: 1
+            </div>
+            <div class="col">
+                VIP: False
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col">
+                商品ID:
+                <input id="product_id" type="number">
+            </div>
+            <div class="col">
+                數量:
+                <input id="product_qy" type="number">
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-primary btn-sm purchase-button">購買</button>
+            </div>
+        </div>
+
+        <br />
+
+        <h3>商品列表</h3>
+
+        <br />
+
+        <div class="row">
+            <div class="col">
+                商品ID
+            </div>
+            <div class="col">
+                品名
+            </div>
+            <div class="col">
+                庫存數量
+            </div>
+            <div class="col">
+                單價
+            </div>
+            <div class="col">
+                商店
+            </div>
+            <div class="col">
+                VIP限定
+            </div>
+        </div>
+        {% for product in products %}
+        <div class="row">
+            <div class="col">
+                {{ product.id }}
+            </div>
+            <div class="col">
+                {{ product.name }}
+            </div>
+            <div class="col">
+                {{ product.stock_pcs }}
+            </div>
+            <div class="col">
+                {{ product.price }}
+            </div>
+            <div class="col">
+                {{ product.shop_id }}
+            </div>
+            <div class="col">
+                {{ product.vip }}
+            </div>
+        </div>
+        {% endfor %}
+
+        <br />
+
+        <h3>訂單紀錄</h3>
+
+        <br />
+
+        <div class="row">
+            <div class="col">
+                訂單ID
+            </div>
+            <div class="col">
+                品名
+            </div>
+            <div class="col">
+                購買數量
+            </div>
+            <div class="col">
+                總價
+            </div>
+            <div class="col">
+                商店
+            </div>
+            <div class="col">
+                客戶ID
+            </div>
+            <div class="col"></div>
+        </div>
+        {% for order in orders %}
+        <div class="row">
+            <div class="col">
+                {{ order.id }}
+            </div>
+            <div class="col">
+                {{ order.product.name }}
+            </div>
+            <div class="col">
+                {{ order.qy }}
+            </div>
+            <div class="col">
+                {{ order.price }}
+            </div>
+            <div class="col">
+                {{ order.shop_id }}
+            </div>
+            <div class="col">
+                {{ order.customer_id }}
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-primary btn-sm cancel-button" value="{{ order.id }}">取消購買</button>
+            </div>
+        </div>
+        {% endfor %}
+
+        <br />
+
+        <button type="button" class="btn btn-primary btn-sm top3">商品TOP 3</button>
+    </div>
+    <script src="{% static 'home.js' %}"></script>
+    <script src=" http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"> </script>
+</body>
+
+</html>
