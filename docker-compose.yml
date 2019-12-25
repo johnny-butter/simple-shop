@@ -44,6 +44,16 @@ services:
     networks:
       - web_network
 
+  redis:
+    image: "redis:alpine"
+
+  celery-beat:
+    build: .
+    command: celery -A simple_shop -l debug worker -B
+    depends_on:
+      - app
+      - redis
+
 networks:
   web_network:
     driver: bridge
