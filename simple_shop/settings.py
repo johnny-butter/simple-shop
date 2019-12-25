@@ -18,7 +18,6 @@ env = environ.Env(
     DEBUG=(bool, True),
     ALLOWED_HOSTS=(list, []),
     SECRET_KEY=(str, ''),
-    CACHE_OPTIONS=(dict, {}),
 )
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -34,9 +33,9 @@ environ.Env.read_env(BASE_DIR + '/.env')
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['192.168.99.100']
+ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
 
 # Application definition
@@ -155,6 +154,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'shop_home/static/css/'),
 )
 
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379/1'
-CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/2'
+CELERY_BROKER_URL = 'redis://{}:6379/1'.format(env('REDIS_HOST'))
+CELERY_RESULT_BACKEND = 'redis://{}:6379/2'.format(env('REDIS_HOST'))
 CELERY_RESULT_SERIALIZER = 'json'
